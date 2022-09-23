@@ -1,0 +1,108 @@
+.navbar-nav{
+    width: 500px;
+}
+
+.navbar{
+    background-color:#32c782 ;
+   
+}
+.nav-link{
+    color: rgb(252, 250, 250);
+}
+.nav-link:hover{
+    color: #198754;
+}
+.collapse{
+     width: 100%;
+}
+.img{
+    height: 600px;
+}
+.scroll{
+    margin-bottom: 200px;
+}
+.h1{
+    text-align: center;
+    margin-top: 20px;
+    
+}
+.container-fluid{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.card1{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.form-control{
+    width: 50%;
+    text-align: center;
+}
+.form{
+    margin-left: 40%;
+}
+
+.a{
+    text-decoration: none;
+    color: white;
+}
+
+a {
+    color: ghostwhite;
+    text-decoration: none;
+}
+a:hover{
+    color: rgb(180, 180, 181);
+
+}
+
+.para{
+
+    font-size: 30px;
+}
+.price{
+    color: red;
+    font-size: 20px;
+}
+.p{
+    font-size: 20px;
+}
+.s{
+    border: 1px solid black;
+    padding: 2px;
+}
+.detail{
+    display: flex;
+    flex-wrap: wrap;
+}
+.form {
+    margin-left: 200px;
+}
+
+.form-control {
+    width: 50%;
+    text-align: justify;
+}
+.h{
+    margin: 10px;
+}
+
+
+@media only screen and (min-width: 600px) {
+    .navbar-brand{
+        margin-right: 60px!important;
+    }
+    .search{
+        padding-left: 400px;
+    }
+}
+@media only screen and (max-width: 600px) {
+    
+    .card{
+        margin-bottom: 20px;
+    }
+}
+
