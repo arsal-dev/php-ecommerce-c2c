@@ -138,7 +138,7 @@
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="../signout.php">Logout</a>
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Logout</button>
                 </div>
               </li>
               <li class="nav-item">
