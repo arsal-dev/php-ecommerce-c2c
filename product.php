@@ -1,40 +1,38 @@
 
     <?php include './includes/header.php'; ?>
 
+
+    <?php 
+
+        include './database/db_connect.php';
+        $id = $_GET['id'];
+
+        $result = $conn->query("SELECT * FROM products WHERE id = $id");
+        $product = $result->fetch_assoc();
+        $desc = explode(',' , $product['product_desc']);
+        $pictures = explode(',' , $product['pictures']);
+    ?>
+
   <!-- product detail start  -->
 
    <div class="container-fluid detail">
 
     <div class="left col-lg-4 ">
-
-        <img src="./images/product 1.jpg">
-
+        <img src="<?php echo './admin/' . $product['thumbnail'] ?>">
     </div>
-
     <div class="right col-lg-6 col-sm-12 col-md-12">
 
         <div class="content">
         
-            <p class="para"><b> Men's Stylish Watch Rolex</b></p>
+            <p class="para"><b> <?php echo $product['name']; ?></b></p>
              
-            <p> <span class="p"> <b> Price:</b></span> &nbsp;<span class="price">$200.00</span></p>
-
-             <p><span class="p"> <b> Size: </b></span> 
-                <span style="border:1px solid;padding:1% 3%" class="ml-3">M</span>&nbsp;
-                <span style="border:1px solid;padding:1% 3%" class="ml-2">L</span>&nbsp;
-                <span style="border:1px solid;padding:1% 3%" class="ml-2">XL</span>
-            </p>
+            <p> <span class="p"> <b> Price:</b></span> &nbsp;<span class="price">$<?php echo $product['price'] ?></span></p></p>
 
             <div class="col-12">
                 <ul>
-                    <li>Care Instructions: handle with care</li>
-                    <li>Fit Type: regular fit</li>
-                    <li>Strip Color:Brown</li>
-                    <li>Watch color:Golden</li>
-                    <li>Regular fit</li>
-                    <li>Brand: Rolex</li>
-                    <li>Water Proof</li>
-                    <li>Warranty:5 YEAR</li>
+                  <?php for($i = 0; $i < count($desc); $i++): ?>
+                    <li><?php echo $desc[$i]; ?></li>
+                  <?php endfor; ?>
                 </ul>
             </div>
 
@@ -51,6 +49,13 @@
 
         </div>
 
+    </div>
+    <div class="row mt-5 justify-content-between">
+        <?php for($i = 0; $i < count($pictures); $i++): ?>
+            <div class="col-3">
+                <img src="<?php echo 'admin' . $pictures[$i] ?>" width="200px" alt="pic">
+            </div>
+        <?php endfor; ?>
     </div>
    </div>
   <!-- product detail end  -->

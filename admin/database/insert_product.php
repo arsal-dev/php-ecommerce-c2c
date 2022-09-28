@@ -1,5 +1,4 @@
 <?php
-
     include './database/db_connect.php';
 
     if(isset($_POST['submit'])){
@@ -23,7 +22,6 @@
         }
         else {
             if(isset($_FILES['thumb']['name'])){
-                // print_r($_FILES['thumb']);
                 $thumb = $_FILES['thumb'];
 
                 $image_name = explode('.', $_FILES['thumb']['name'])[0];
@@ -106,6 +104,4 @@
             unlink($thumbnail);
             $GLOBALS['error'] = 'Images Must only be 3';
         }
-
-
     }

@@ -23,7 +23,12 @@
 
             if(password_verify($pass, $db_pass)){
                 $_SESSION['id'] = $row['id'];
-                header('Location: ./clientarea/index.php');
+                if($row['role'] != 1){
+                  header('Location: ./admin');
+                }
+                else {
+                  header('Location: ./clientarea/index.php');
+                }
             }
             else {
                 $error = 'email or password is incorrect';

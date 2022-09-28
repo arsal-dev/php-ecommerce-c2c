@@ -1,6 +1,10 @@
 <?php include './includes/header.php'; ?>
     <!-- slider start  -->
 
+    <?php include './database/db_connect.php';
+      $result = $conn->query("SELECT * FROM products");
+    ?>
+
     <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -53,83 +57,25 @@
     <hr>
     <div class="container-fluid">
   
-  
-
-    <div class="card" style="width: 18rem;">
-      <img src="./images/product 1.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Watches</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-success">Buy Now</a>
-      </div>
-    </div>
-    
-    <div class="card" style="width: 18rem;">
-      <img src="./images/product 2.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Electronic Light</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-success">Buy Now</a>
-      </div>
-    </div>
-
-    <div class="card" style="width: 18rem;">
-      <img src="./images/product 3.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Bags</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-success">Buy Now</a>
-      </div>
-    </div>
-
-    <div class="card" style="width: 18rem;">
-      <img src="./images/product 4.png" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Game Pods</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-success">Buy Now</a>
-      </div>
-    </div>
-
-
-
-
-    <div class="card card1" style="width: 18rem;">
-      <img src="./images/product 1.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Watches</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-success">Buy Now</a>
-      </div>
-    </div>
-    
-    <div class="card card1" style="width: 18rem;">
-      <img src="./images/product 2.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Electronic Light</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-success">Buy Now</a>
-      </div>
-    </div>
-
-    <div class="card card1" style="width: 18rem;">
-      <img src="./images/product 3.jpg" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Bags</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-success">Buy Now</a>
-      </div>
-    </div>
-
-    <div class="card card1" style="width: 18rem;">
-      <img src="./images/product 4.png" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h5 class="card-title">Game Pods</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-success">Buy Now</a>
-      </div>
-    </div>
-
+    <?php while($row = $result->fetch_assoc()): ?>
+      <?php $desc = explode(',' , $row['product_desc']) ?>
+      <a style="text-decoration: none; color: black;" href="./product.php?id=<?php echo $row['id']; ?>">
+        <div class="card" style="width: 18rem;">
+          <img src="<?php echo './admin/' . $row['thumbnail'] ?>" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><?php echo $row['name'] ?></h5>
+            <p class="card-text">
+                <ul>
+                  <?php for($i = 0; $i < count($desc); $i++): ?>
+                    <li><?php echo $desc[$i]; ?></li>
+                  <?php endfor; ?>
+                </ul>
+            </p>
+            <a href="#" class="btn btn-success">Buy Now</a>
+          </div>
+        </div>
+      </a>
+     <?php endwhile; ?>
   </div>
 
     <!-- product section end  -->

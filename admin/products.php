@@ -1,5 +1,14 @@
 <?php include './includes/header.php'; ?>
 
+    <?php 
+
+        include './database/db_connect.php';
+    
+
+        $result = $conn->query("SELECT products.*, categories.category_name FROM products INNER JOIN categories WHERE products.category_id = categories.id ORDER BY products.id DESC");
+
+    ?>
+
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Products</h1>
@@ -18,84 +27,84 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Product Description</th>
+                            <th>Thumbnail</th>
+                            <th>Pictures</th>
+                            <th>Stock</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Product Description</th>
+                            <th>Thumbnail</th>
+                            <th>Pictures</th>
+                            <th>Stock</th>
+                            <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                        </tr>
-                        <tr>
-                            <td>Garrett Winters</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>63</td>
-                            <td>2011/07/25</td>
-                            <td>$170,750</td>
-                        </tr>
-                        <tr>
-                            <td>Ashton Cox</td>
-                            <td>Junior Technical Author</td>
-                            <td>San Francisco</td>
-                            <td>66</td>
-                            <td>2009/01/12</td>
-                            <td>$86,000</td>
-                        </tr>
-                        <tr>
-                            <td>Cedric Kelly</td>
-                            <td>Senior Javascript Developer</td>
-                            <td>Edinburgh</td>
-                            <td>22</td>
-                            <td>2012/03/29</td>
-                            <td>$433,060</td>
-                        </tr>
-                        <tr>
-                            <td>Airi Satou</td>
-                            <td>Accountant</td>
-                            <td>Tokyo</td>
-                            <td>33</td>
-                            <td>2008/11/28</td>
-                            <td>$162,700</td>
-                        </tr>
-                        <tr>
-                            <td>Brielle Williamson</td>
-                            <td>Integration Specialist</td>
-                            <td>New York</td>
-                            <td>61</td>
-                            <td>2012/12/02</td>
-                            <td>$372,000</td>
-                        </tr>
-                        <tr>
-                            <td>Herrod Chandler</td>
-                            <td>Sales Assistant</td>
-                            <td>San Francisco</td>
-                            <td>59</td>
-                            <td>2012/08/06</td>
-                            <td>$137,500</td>
-                        </tr>
+                        <?php while($row = $result->fetch_assoc()){ 
+                            $pictures = explode(',', $row['pictures']);
+                            ?>
+                            <tr>
+                                <td><?php echo $row['name'] ?></td>
+                                <td><?php echo $row['category_name']; ?></td>
+                                <td><?php echo $row['price'] ?></td>
+                                <td><?php echo $row['product_desc'] ?></td>
+                                <td><img src="<?php echo $row['thumbnail'] ?>" width="100px" alt="thumbnail"></td>
+                                <td>
+                                <?php for($i = 0; $i < count($pictures); $i++){ ?>
+                                    <img src="<?php echo $pictures[$i] ?>" width="50px" alt="pictures">
+                                <?php } ?>
+                                </td>
+                                <td><?php echo $row['stock'] ?></td>
+                                <td><button class="btn btn-warning m-2">EDIT</button><button class="btn btn-danger delete_pro" id="<?php echo $row['id'] ?>" data-toggle="modal" data-target="#exampleModal">DELETE</button></td>
+                            </tr>    
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="./database/delete_product.php?id=1" type="button" id="dlt_mdl_pro" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+    let delete_pro = document.querySelectorAll('.delete_pro');
+    let dlt_mdl_pro = document.getElementById('dlt_mdl_pro');
+    for(let i = 0; i < delete_pro.length; i++){
+        delete_pro[i].addEventListener('click', function(){
+            let id = this.getAttribute('id');
+            dlt_mdl_pro.setAttribute('href', `./database/delete_product.php?id=${id}`);
+        });
+    }
+
+</script>
 
 <?php include './includes/footer.php'; ?>
