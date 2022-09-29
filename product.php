@@ -18,7 +18,7 @@
    <div class="container-fluid detail">
 
     <div class="left col-lg-4 ">
-        <img src="<?php echo './admin/' . $product['thumbnail'] ?>">
+        <img width="500px" src="<?php echo './admin/' . $product['thumbnail'] ?>">
     </div>
     <div class="right col-lg-6 col-sm-12 col-md-12">
 

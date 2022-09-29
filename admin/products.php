@@ -64,7 +64,11 @@
                                 <?php } ?>
                                 </td>
                                 <td><?php echo $row['stock'] ?></td>
-                                <td><button class="btn btn-warning m-2">EDIT</button><button class="btn btn-danger delete_pro" id="<?php echo $row['id'] ?>" data-toggle="modal" data-target="#exampleModal">DELETE</button></td>
+                                <td><a href="./product_update.php?id=<?php echo $row['id']; ?>" class="btn btn-warning m-2">EDIT</a>
+                                
+                                <a href="./pro_img_update.php?id=<?php echo $row['id']; ?>" class="btn btn-secondary">Update Images</a>
+                                
+                                <button class="btn btn-danger delete_pro" id="<?php echo $row['id'] ?>" data-toggle="modal" data-target="#exampleModal">DELETE</button></td>
                             </tr>    
                         <?php } ?>
                     </tbody>
