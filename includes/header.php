@@ -44,6 +44,7 @@
       <a class="nav-link" href="./product.php">Best Seller</a>
       <a class="nav-link" href="./signup.php">Sell on store</a>
       <a class="nav-link" href="./signin.php">Sign In</a>
+      <a class="nav-link" href="./cart.php">Cart</a>
 
     </div>
     <form class="d-flex search" role="search">

@@ -11,7 +11,11 @@
         $product = $result->fetch_assoc();
         $desc = explode(',' , $product['product_desc']);
         $pictures = explode(',' , $product['pictures']);
+
+        $button = "add";
     ?>
+
+
 
   <!-- product detail start  -->
 
@@ -37,13 +41,44 @@
             </div>
 
             <div class="row pt-2">
-              
+                <div class="col-6 pl-5 text-white"> 
+                <?php
+                if (isset($_COOKIE["cart"])) {
+                    $cart = json_decode($_COOKIE["cart"]);
 
-                <div class="col-6 pl-5 text-white">
+                    foreach($cart as $c) {
+                        if ($c->id == $id) {
+                            $button = "delete"; ?>
+                        <?php }
+                    }
 
-                    <a href="#" style="color:white" ><span style="width:30%;border:1px solid;padding:2% 5%;text-transform: uppercase;font-size:15px;font-weight:600;background-color:rgb(255, 174, 0);border-radius:10px;"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="ml-2">add to card</span></span></a>
+                    if ($button == "add") { ?>
+                        <form action="./database/add-cart.php" method="POST">
+                            <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
+                            <input type="hidden" name="name" value="<?php echo $product['name']; ?>">
+                            <input type="submit" value="Add to Cart" name="submit" class="btn btn-warning">
+                        </form>
+                    <?php } else { ?>
+
+                            <form action="./database/delete-cart.php" method="POST">
+                                <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
+                                <input type="submit" value="Delete From Cart" name="submit" class="btn btn-danger">
+                            </form>
+                    <?php }
+
+                } else { 
+                    ?>
+
+                    <form action="./database/add-cart.php" method="POST">
+                        <input type="hidden" name="id" value="<?php echo $product['id']; ?>">
+                        <input type="hidden" name="name" value="<?php echo $product['name']; ?>">
+                        <input type="submit" value="Add to Cart" name="submit" class="btn btn-warning">
+                    </form>
+
+                <?php } ?>
+
                      <br><br>
-                    <a href="#" style="color:white"><span style="width:30%;border:1px solid;padding:2% 5%;text-transform: uppercase;font-size:15px;font-weight:600;background-color:orangered;border-radius:10px;" class="ml-3"><i class="fa fa-bolt" aria-hidden="true"></i><span class="ml-2"> buy now</span></span></a>
+                    <!-- <a href="#" style="color:white"><span style="width:30%;border:1px solid;padding:2% 5%;text-transform: uppercase;font-size:15px;font-weight:600;background-color:orangered;border-radius:10px;" class="ml-3"><i class="fa fa-bolt" aria-hidden="true"></i><span class="ml-2"> buy now</span></span></a> -->
                 </div>
             </div>
 
